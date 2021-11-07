@@ -1,0 +1,84 @@
+<html>
+<title></title>
+
+<head>
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180056214-2"></script>
+     <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag() { dataLayer.push(arguments); }
+         gtag('js', new Date());
+         gtag('config', 'UA-180056214-2');
+     </script>
+ 
+   
+    <script src="pictal.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body  style="background-color: rgb(50,50,50); margin: 0; width: 100%; height: 100%; overflow: hidden;">
+
+    <div id="pctl-viewer-window"></div>
+
+    
+    <script>
+
+        // build the params from the querystring
+        var params = new URLSearchParams(window.location.search);
+
+        function parseBool(val, def) {
+            return val != null ? val.toString() == 'true' ? true : val.toString() == 'false' ? false : def : def;
+        }
+
+
+        var id;
+        if (!params.has('id')) {
+            console.warn('no postId was specified in the querystring');
+            // id = '1-529' //ALTA;
+            //id = btoa('66-772');
+        } else {
+            
+            id = params.get('id');
+        }
+
+
+        var args = {
+            divId: 'pctl-viewer-window',
+            picIndex: params.get('pic') != null ? parseInt(params.get('pic')) : 0,
+            poiIndex: params.get('poi') != null ? parseInt(params.get('poi')) : -1,
+            dataId: id,
+            local: parseBool(params.get('local')),
+            templateId: params.get('templateId')
+
+        };
+
+
+        
+        var rect = document.getElementById('pctl-viewer-window').getBoundingClientRect();
+        //console.log('viewer args', args, rect);
+        if(rect.width > 600) {
+            var viewer = new Pictal.App.Viewer(args);
+           
+        } else {
+
+            var viewer = new Pictal.App.MobileViewer(args);
+        }
+
+
+
+   
+
+       
+
+     
+
+
+
+
+
+    </script>
+</body>
+
+</html>
